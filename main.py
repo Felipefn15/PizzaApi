@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from services import Mysql
@@ -27,10 +28,8 @@ def start_app(app):
 
 
 def run_server():
-    port = 5000
+    port = int(os.environ.get("PORT", 5000))
 
     _register_blueprints(app)
 
-    app.run(host="0.0.0.0", threaded=False, port=port)
-
-run_server()
+    app.run(host='0.0.0.0', port=port)
