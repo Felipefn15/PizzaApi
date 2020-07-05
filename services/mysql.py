@@ -32,6 +32,10 @@ class Mysql(object):
         record = self.cursor.fetchall()#Formatter.format_cursor(self.cursor.fetchall())
         return record
 
+    def run_insert(self, query):
+        self.cursor.execute(query)
+        self.connection.commit()
+        return 'Done'
 
     def build_query(self, query_file, *args):
         with open(

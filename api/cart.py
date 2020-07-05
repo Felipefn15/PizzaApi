@@ -30,7 +30,8 @@ class Cart(restful.Resource):
         args = parser.parse_args()
         ms = Mysql()
         query = ms.build_query('addItem.sql',args.login,args.item.replace('%20',' '))
-        results = ms.execute_query(query)
+        print(query)
+        results = ms.run_insert(query)
         return jsonify({
-             "data": results
-        })
+                "data": results
+            })
