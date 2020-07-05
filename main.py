@@ -33,3 +33,5 @@ def run_server():
     _register_blueprints(app)
 
     app.run(host='0.0.0.0', port=port)
+
+run_server()
