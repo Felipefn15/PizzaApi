@@ -21,15 +21,21 @@ class Cart(restful.Resource):
             return ms.execute_query(query)
         elif(args.mode == 'orders'):
             query = ms.build_query('orderProgress.sql',args.login)
+            results = ms.execute_query(query)
         elif(args.mode == 'insert'):
             query = ms.build_query('insertHistory.sql',args.login,args.item,args.price,args.quantity)
+            results = ms.run_insert(query)
+            return jsonify({
+                    "data": results
+                })
         elif(args.mode == 'clear'):
             query = ms.build_query('clearProgress.sql',args.login)
-
-            results = ms.execute_query(query)
+            results = ms.run_insert(query)
             return jsonify({
-                "data": results
-            })
+                    "data": results
+                })
+
+            
 
     def post(self):
         parser = reqparse.RequestParser()
@@ -38,7 +44,6 @@ class Cart(restful.Resource):
         args = parser.parse_args()
         ms = Mysql()
         query = ms.build_query('addItem.sql',args.login,args.item.replace('%20',' '))
-        print(query)
         results = ms.run_insert(query)
         return jsonify({
                 "data": results
