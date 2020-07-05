@@ -1,6 +1,6 @@
 select
     name
-from USER
+from User
 WHERE
-    name = '{0}' and
+    email = '{0}' and
     password = '{1}'
