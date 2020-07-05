@@ -17,11 +17,11 @@ class Cart(restful.Resource):
             query = ms.build_query('products.sql')
             return ms.execute_query(query)
         elif(args.mode == 'orders'):
-        query = ms.build_query('orderProgress.sql',args.login)
-        results = ms.execute_query(query)
-        return jsonify({
-             "data": results
-        })
+            query = ms.build_query('orderProgress.sql',args.login)
+            results = ms.execute_query(query)
+            return jsonify({
+                "data": results
+            })
 
     def post(self):
         parser = reqparse.RequestParser()
