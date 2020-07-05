@@ -8,4 +8,13 @@ from services import Mysql
 class Login(restful.Resource):
 
     def post(self):
-       return 'Login'
+        parser = reqparse.RequestParser()
+        parser.add_argument("login", type=str)
+        parser.add_argument("password" , type=str)
+        args = parser.parse_args()
+        ms = Mysql()
+        query = ms.build_query('login.sql',args.login,args.password)
+        results = ms.execute_query(query)
+        return jsonify({
+             "data": results
+        })
