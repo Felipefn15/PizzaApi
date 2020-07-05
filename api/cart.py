@@ -18,10 +18,16 @@ class Cart(restful.Resource):
         ms = Mysql()
         if(args.mode == 'history'):
             query = ms.build_query('products.sql')
-            return ms.execute_query(query)
+            results = ms.execute_query(query)
+            return jsonify({
+                "data": results
+            })
         elif(args.mode == 'orders'):
             query = ms.build_query('orderProgress.sql',args.login)
             results = ms.execute_query(query)
+            return jsonify({
+                "data": results
+            })
         elif(args.mode == 'insert'):
             query = ms.build_query('insertHistory.sql',args.login,args.item,args.price,args.quantity)
             results = ms.run_insert(query)
